@@ -10,7 +10,7 @@ const cors = require("cors");
 
 const io = new Server(server, { 
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://code-connect-a132.vercel.app/",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -18,7 +18,7 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://code-connect-a132.vercel.app/",
     methods: ["GET", "POST"],
     credentials: true,
   })
