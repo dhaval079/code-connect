@@ -2,12 +2,30 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
-const ACTIONS = require("../realtime-editor/src/Actions");
-const server = http.createServer(app);
+const ACTIONS = require("./Actions");
+const createServer = require("http").createServer
+const server = createServer(app);
 const path = require("path");
+const cors = require("cors");
 
-const io = new Server(server);
+const io = new Server(server, { 
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 const userSocketMap = {};
 
@@ -56,12 +74,13 @@ io.on("connection", (socket) => {
     delete userSocketMap[socket.id];
     socket.leave();
   });
-});
+}
+);
 
 const PORT = process.env.PORT || 5000; // Use the provided port or default to 5000
 
 // Listen on the specified port
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
