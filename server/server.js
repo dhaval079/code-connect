@@ -10,7 +10,7 @@ const cors = require("cors");
 
 const io = new Server(server, { 
   cors: {
-    origin: "https://code-connect-a132.vercel.app/",
+    origin: "*",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -18,14 +18,11 @@ const io = new Server(server, {
 
 app.use(
   cors({
-    origin: "https://code-connect-a132.vercel.app/",
+    origin: "*",
     methods: ["GET", "POST"],
     credentials: true,
   })
 );
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 const userSocketMap = {};
 
