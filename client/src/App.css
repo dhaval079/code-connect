@@ -160,7 +160,7 @@ label{
   top: 0;
 }
 .coffeeBtn{
-  margin-left:64%;
+  margin-left:65%;
 }
 .innerheader{
   display: flex;
@@ -179,7 +179,8 @@ label{
 
 .innerheader img{
   width: 4rem;
-  margin-left: 1%;;
+  margin-left: 1%;
+  margin-right: 1%;
   height: 4rem;
 }
 .mainWrap {

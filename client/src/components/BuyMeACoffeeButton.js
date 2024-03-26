@@ -11,7 +11,7 @@ const BuyMeACoffeeButton = () => {
       <img
         src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
         alt="Buy Me A Coffee"
-        style={{ backgroundColor :'black', height: '60px', width: '217px' }}
+        style={{ backgroundColor :'black', height: '50px', width: '180px' }}
       />
     </a>
     </div>

@@ -63,7 +63,7 @@ function Home() {
 <div className="header">
 <div class="innerheader">
   <img src="/faicon (1).png" alt="aa" />
-  <h2 className="code">CodeConnect</h2>
+  <h2 className="code">Code Connect</h2>
   <BuyMeACoffeeButton></BuyMeACoffeeButton>
 </div>
 </div>
