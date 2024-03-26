@@ -23,7 +23,9 @@ app.use(
     credentials: true,
   })
 );
-
+app.get("/",(req,res)=>{
+  res.send("Server is running")
+})
 const userSocketMap = {};
 
 
