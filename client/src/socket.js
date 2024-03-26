@@ -8,5 +8,5 @@ export const initSocket = async () =>{
         transports : ['websocket'],
 
     };
-    return io("https://code-connect-nine.vercel.app/",options)
+    return io(process.env.REACT_APP_BACKEND_URL,options);
 }   
