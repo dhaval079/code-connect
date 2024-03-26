@@ -3,26 +3,21 @@ const app = express();
 const http = require("http");
 const { Server } = require("socket.io");
 const ACTIONS = require("./Actions");
-const createServer = require("http").createServer
-const server = createServer(app);
 const path = require("path");
 const cors = require("cors");
 
-const io = new Server(server, { 
+app.use(cors()); // Add cors middleware
+
+const server = http.createServer(app); // Add this
+
+// Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
+const io = new Server(server, {
   cors: {
-    origin: ["https://code-connect-a132.vercel.app/"],
-    methods: ["GET", "POST"],
-    credentials: true,
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
   },
 });
 
-app.use(
-  cors({
-    origin: ["https://code-connect-a132.vercel.app/"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
 app.get("/",(req,res)=>{
   res.send("Server is running")
 })
