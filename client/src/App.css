@@ -3,9 +3,8 @@
   display: flex;
   overflow-y: hidden; /* Enable scrolling */
   overflow-x: hidden;
-    scrollbar-width: none; /* Hide scrollbar in Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
-
+  scrollbar-width: none; /* Hide scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
   align-items: center;
   justify-content: center;
   color: white;
@@ -160,13 +159,15 @@ label{
   top: 0;
 }
 .coffeeBtn{
-  margin-left:65%;
+  margin-left:67%;
+
+  margin-top: 0.5%;
 }
 .innerheader{
   display: flex;
-  margin-left: -100%;
+  margin-left: -110%;
   margin-top: 3%;
-  width: 290%;
+  width: 315%;
   font-size: 1.2rem;
   height: 4rem;
   padding: 10px;
@@ -174,9 +175,8 @@ label{
   border-radius: 14px;
 }
 .code{
-  margin-top: 0.9%
+  margin-top: 1%
 }
-
 .innerheader img{
   width: 4rem;
   margin-left: 1%;
