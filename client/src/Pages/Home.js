@@ -17,7 +17,7 @@ function Home() {
     // Simulate some loading time (optional)
     setTimeout(() => {
       setIsLoading(false);
-    }, 6000); // 1 second delay
+    }, 5000); // 1 second delay
   }, []);
 
 

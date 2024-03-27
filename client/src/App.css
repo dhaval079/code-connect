@@ -1,3 +1,6 @@
+*{
+  font-family: "Reddit Mono", monospace;
+}
 .homepage{
   height: 100vh;
   display: flex;
