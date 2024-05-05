@@ -78,3 +78,11 @@ server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
+async function add(){
+  let myPromise = new Promise(function(resolve,reject){
+    setTimeout(hello = () =>{
+      return 'hello world';
+    },2000)
+  })
+  document.getElementById("demo").innerHTML=await myPromise;
+}
