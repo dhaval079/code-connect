@@ -51,7 +51,7 @@ const Editor = ({socketRef,id,onCodeChange}) => {
 
   useEffect(()=>{
     if(socketRef.current){
-      socketRef.current.on(ACTIONS.CODE_CHANGE,({code})=>{
+      socketRef.current.on(ACTIONS.CODE_CHANGE,({code,user1})=>{
         console.log("receiving" , code)
         if(code!==null){
           editorRef.current.setValue(code);
