@@ -1,15 +1,19 @@
 import React from "react";
-// import Avatar from "react-avatar";
-// import AvatarEditor from 'react-avatar-editor'
-import Avatar, { genConfig } from "react-nice-avatar";
+import Avatar from "react-nice-avatar";
 
-const Client = ({ user }) => {
-  const config = genConfig();
+const Client = ({ user, isActive }) => {
   return (
-    <div className="client">
-    <Avatar style={{ width: "3rem", height: "3rem" }} />
+    <div className={`${isActive ? 'active' : ''}`}>
+      <Avatar 
+        style={{ 
+          width: "3rem", 
+          height: "3rem", 
+          border: isActive ? "5px solid green" : "none" // Conditional border 
+        }} 
+      />
       <span className="username">{user}</span>
     </div>
   );
 };
+
 export default Client;
