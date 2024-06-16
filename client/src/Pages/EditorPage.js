@@ -20,6 +20,7 @@ const EditorPage = () => {
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([{}]);
   const [socketConnected, setSocketConnected] = useState(false);
+  const [activeUser, setActiveUser] = useState(null); // Add this state
 
   useEffect(() => {
     const init = async () => {
@@ -85,6 +86,23 @@ const EditorPage = () => {
     }
   }, []);
 
+   useEffect(()=>{
+    if(socketRef.current){
+      socketRef.current.on(ACTIONS.CODE_CHANGE,({code, user1})=>{
+        console.log("user changing here this is " , user1);
+        setActiveUser(user1);
+        setTimeout(() => {
+          setActiveUser()
+        }, 3000);
+      });
+    }
+    return () =>{
+      socketRef.current.off(ACTIONS.CODE_CHANGE,() => {
+        console.log("Socket Off");
+      });
+    }
+  },[socketRef.current]);
+  
   async function copyRoomId () {
     try{
       await navigator.clipboard.writeText(id);
@@ -99,7 +117,8 @@ const EditorPage = () => {
   if (!location.state) {
     return <Navigate to="/" />;
   }
-
+ 
+  
   function leaveRoom(){
     if (window.confirm("Are you sure you want to leave?")) {
 
@@ -124,9 +143,13 @@ const EditorPage = () => {
             <div class="text"> Active</div>
           </div>
 
-          <div className="clientsList">
+           <div className="clientsList">
             {clients.map((client) => (
-              <Client key={client.socketId} user={client.user} />
+              <Client 
+                key={client.socketId} 
+                user={client.user} 
+                isActive={client.user === activeUser} 
+              />
             ))}
           </div>
 
