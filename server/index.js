@@ -49,8 +49,11 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on(ACTIONS.CODE_CHANGE, ({ id, code }) => {
-    socket.in(id).emit(ACTIONS.CODE_CHANGE, { code });
+ socket.on(ACTIONS.CODE_CHANGE, ({ id, code }) => {
+    // Now the user should be in the map!
+    const user1 = userSocketMap[socket.id];
+    console.log("User Changing 1 :", user1); 
+    socket.in(id).emit(ACTIONS.CODE_CHANGE, { user1, code });
   });
 
   socket.on(ACTIONS.SYNC_CODE, ({ code, socketId }) => {
