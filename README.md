@@ -7,6 +7,10 @@ CodeConnect is a cutting-edge real-time collaborative coding platform that revol
 <img src="Assets/codeconnect.gif" alt="CodeConnect Demo" width="70%">
 </div>
 
+Project Link: https://github.com/dhaval079/code-connect
+
+Live Demo: https://thecodeconnect.vercel.app/
+
 ## Features
 
 - Real-time collaborative code editing
@@ -113,18 +117,17 @@ Open your browser and navigate to http://localhost:3000
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Acknowledgements
-Socket.io
-CodeMirror
-React.js
-Node.js
+Acknowledgements<br>
+Socket.io <br>
+CodeMirror<br>
+React.js<br>
+Node.js<br>
 Express.js
+
+
 Contact
+
 Your Name - rupaparadhaval1234@example.com
-
-Project Link: https://github.com/dhaval079/code-connect
-
-Live Demo: https://thecodeconnect.vercel.app/
 
 
 This README provides a comprehensive overview of your CodeConnect project, highlighting its impact, usability, and technical details. It includes:
