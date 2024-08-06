@@ -7,27 +7,6 @@ CodeConnect is a cutting-edge real-time collaborative coding platform that revol
 <img src="Assets/codeconnect.gif" alt="CodeConnect Demo" width="70%">
 </div>
 
-
-
-## Impact
-
-CodeConnect addresses the growing need for remote collaboration in software development:
-
-- **Enhanced Productivity**: Enables real-time code sharing and editing, significantly reducing communication delays in team projects.
-- **Learning and Mentorship**: Facilitates pair programming, making it an excellent tool for teaching and learning coding practices.
-- **Global Collaboration**: Breaks down geographical barriers, allowing developers worldwide to work together effortlessly.
-- **Code Quality Improvement**: Real-time peer review and collaborative problem-solving lead to better code quality and fewer bugs.
-
-## Usability
-
-CodeConnect is designed with user experience at its core:
-
-- **Intuitive Interface**: Clean, modern UI that's easy to navigate for both novice and experienced developers.
-- **Cross-Platform Compatibility**: Works seamlessly across different operating systems and browsers.
-- **Low Latency**: Optimized for real-time interactions with minimal delay.
-- **Language Support**: Supports multiple programming languages, catering to diverse development needs.
-- **Integrated Development Environment**: Combines coding, execution, and collaboration in one platform.
-
 ## Features
 
 - Real-time collaborative code editing
@@ -75,6 +54,25 @@ CodeConnect is designed with user experience at its core:
 ### User Dashboard
 ![User Dashboard](Assets/cc3.png)
 
+## Impact
+
+CodeConnect addresses the growing need for remote collaboration in software development:
+
+- **Enhanced Productivity**: Enables real-time code sharing and editing, significantly reducing communication delays in team projects.
+- **Learning and Mentorship**: Facilitates pair programming, making it an excellent tool for teaching and learning coding practices.
+- **Global Collaboration**: Breaks down geographical barriers, allowing developers worldwide to work together effortlessly.
+- **Code Quality Improvement**: Real-time peer review and collaborative problem-solving lead to better code quality and fewer bugs.
+
+## Usability
+
+CodeConnect is designed with user experience at its core:
+
+- **Intuitive Interface**: Clean, modern UI that's easy to navigate for both novice and experienced developers.
+- **Cross-Platform Compatibility**: Works seamlessly across different operating systems and browsers.
+- **Low Latency**: Optimized for real-time interactions with minimal delay.
+- **Language Support**: Supports multiple programming languages, catering to diverse development needs.
+- **Integrated Development Environment**: Combines coding, execution, and collaboration in one platform.
+- 
 ## Getting Started
 
 ### Prerequisites
