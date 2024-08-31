@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Client from "../components/Client";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams, Navigate } from "react-router-dom";
 import Editor from "../components/Editor";
 import { initSocket } from "../socket";
 import ACTIONS from "../Actions";
@@ -49,7 +49,7 @@ const EditorPage = () => {
         socketRef.current.disconnect();
       }
     };
-  }, []);
+  }, [location.state?.user, id, socketConnected]);
 
   async function copyRoomId() {
     try {

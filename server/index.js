@@ -6,7 +6,7 @@ const ACTIONS = require("./Actions");
 const path = require("path");
 const cors = require("cors");
 
-app.use(cors('*')); // Add cors middleware
+app.use(cors()); // Add cors middleware
 
 const server = http.createServer(app); // Add this
 
