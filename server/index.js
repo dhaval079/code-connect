@@ -6,14 +6,14 @@ const ACTIONS = require("./Actions");
 const path = require("path");
 const cors = require("cors");
 
-app.use(cors()); // Add cors middleware
+app.use(cors('*')); // Add cors middleware
 
 const server = http.createServer(app); // Add this
 
 // Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
 const io = new Server(server, {
   cors: {
-    origin: 'https://thecodeconnect.vercel.app/',
+    origin: 'http://localhost:3000/',
     methods: ['GET', 'POST'],
   },
 });

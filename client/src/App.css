@@ -13,6 +13,10 @@
   color: white;
   background-color: #080808;
 }
+.run{
+bottom: 0;
+right :0;
+}
 .homepage::-webkit-scrollbar { /* Hide scrollbar in Chrome and Safari */
   display: none;
 }
@@ -186,11 +190,12 @@ label{
   margin-right: 1%;
   height: 4rem;
 }
-.mainWrap {
-  display: grid;
-  grid-template-columns: 230px 1fr;
-  height: 100vh;
-}
+  .mainWrap {
+    display: grid;
+    height: 100vh;
+    overflow: hidden;
+    grid-template-columns: 230px 1fr;
+  }
 
 .aside {
   background: rgba(24, 26, 35, 0.51);

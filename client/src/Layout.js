@@ -5,8 +5,9 @@ import Home from './Pages/Home'
 function Layout() {
   return (
     <>
-     {/* <Header></Header>  */}
-     <Home></Home>
+     <Home>
+      
+     </Home>
     </>
   )
 }
