@@ -12,44 +12,76 @@ const EditorPage = () => {
   const location = useLocation();
   const { id } = useParams();
   const reactNavigator = useNavigate();
-  const [clients, setClients] = useState([{}]);
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [activeUser, setActiveUser] = useState(null);
+  const [clients, setClients] = useState([]);
+  const [activeUser, setActiveUser] = useState(null); // Add this state
 
   useEffect(() => {
     const init = async () => {
-      try {
-        socketRef.current = await initSocket();
-        socketRef.current.on('connect', () => setSocketConnected(true));
+      socketRef.current = await initSocket();
 
+      socketRef.current.on('connect', () => {
         socketRef.current.emit(ACTIONS.JOIN, {
           id,
           user: location.state?.user,
         });
+      });
 
-        socketRef.current.on(ACTIONS.JOINED, ({ clients, user }) => {
-          if (user !== location.state?.user) {
-            toast.success(`${user} joined the room`);
-          }
-          setClients(clients);
+      socketRef.current.on(ACTIONS.JOINED, ({ clients, user }) => {
+        if (user !== location.state?.user) {
+          toast.success(`${user} joined the room`);
+        }
+        setClients(clients);
+      });
+
+        // Update the active user when receiving CODE_CHANGE
+        socketRef.current.on(ACTIONS.CODE_CHANGE , ({code, user1}) => {
+          console.log("Code : " , code)
+          console.log("User Changing : ", user1)
+        })
+      
+        socketRef.current.on("connection_error", (err) => {
+          handleErrors(err);
+        });
+        socketRef.current.on("connection_failed", (err) => {
+          handleErrors(err);
         });
 
-        socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, user }) => {
-          toast.success(`${user} left the room.`);
-          setClients((prev) => prev.filter(client => client.socketId !== socketId));
-        });
-      } catch (err) {
-        console.error(err);
-      }
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, user }) => {
+        toast.success(`${user} left the room.`);
+        setClients((prev) => prev.filter(client => client.socketId !== socketId));
+      });
     };
+
+    
 
     init();
+
     return () => {
       if (socketRef.current && socketConnected) {
-        socketRef.current.disconnect();
-      }
-    };
-  }, [location.state?.user, id, socketConnected]);
+      socketRef.current?.disconnect();
+      socketRef.current.off(ACTIONS.JOINED);
+      socketRef.current.off(ACTIONS.DISCONNECTED);
+    }
+  }
+  }, []);
+
+  useEffect(()=>{
+    if(socketRef.current){
+      socketRef.current.on(ACTIONS.CODE_CHANGE,({code, user1})=>{
+        console.log("user changing here this is " , user1);
+        setActiveUser(user1);
+        setTimeout(() => {
+          setActiveUser()
+        }, 3000);
+      });
+    }
+    return () =>{
+      socketRef.current.off(ACTIONS.CODE_CHANGE,() => {
+        console.log("Socket Off");
+      });
+    }
+  },[socketRef.current]);
+
 
   async function copyRoomId() {
     try {
@@ -61,16 +93,16 @@ const EditorPage = () => {
     }
   }
 
-  if (!location.state) {
-    return <Navigate to="/" />;
-  }
-
   function leaveRoom() {
     if (window.confirm("Are you sure you want to leave?")) {
       socketRef.current.emit(ACTIONS.LEAVE_ROOM, { id });
       socketRef.current.disconnect();
       reactNavigator("/");
     }
+  }
+
+  if (!location.state) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -88,7 +120,7 @@ const EditorPage = () => {
             {clients.map((client) => (
               <Client 
                 key={client.socketId} 
-                user={client.user} 
+                user={client.user}
                 isActive={client.user === activeUser} 
               />
             ))}
@@ -98,7 +130,11 @@ const EditorPage = () => {
         <button className="btn leaveBtn" onClick={leaveRoom} style={styles.leaveBtn}>Leave</button>
       </div>
       <div className="editorwrap" style={styles.editorwrap}>
-        <Editor socketRef={socketRef} id={id} onCodeChange={(code) => { codeRef.current = code; }} />
+        <Editor 
+          socketRef={socketRef} 
+          id={id} 
+          onCodeChange={(code) => { codeRef.current = code; }}
+        />
       </div>
     </div>
   );

@@ -13,8 +13,6 @@ const Editor = ({ socketRef, id, onCodeChange }) => {
   const [output, setOutput] = useState('');
 
   useEffect(() => {
-    console.log('Initializing Codemirror...');
-
     async function init() {
       editorRef.current = Codemirror.fromTextArea(
         document.getElementById('realtimeEditor'),
@@ -24,6 +22,9 @@ const Editor = ({ socketRef, id, onCodeChange }) => {
           autoCloseTags: true,
           autoCloseBrackets: true,
           lineNumbers: true,
+          scrollPastEnd: true,
+          autocorrect:true,
+          autofocus:true,
         }
       );
 
@@ -39,10 +40,21 @@ const Editor = ({ socketRef, id, onCodeChange }) => {
         }
       });
 
-      editorRef.current.setValue('// Start coding\nconsole.log("Hello, World!")');
+      // Initial code setup
+      editorRef.current.setValue(`//Start coding here
+async function add(){
+  let myPromise = new Promise(function(resolve,reject){
+    setTimeout(() => {
+      resolve('hello world');
+    }, 2000);
+  });
+  document.getElementById("demo").innerHTML = await myPromise;
+}
+// Start coding
+console.log("Hello, World!");`);
+
       editorRef.current.setSize(null, '100%');
 
-      // Animate editor appearance
       gsap.from(editorRef.current.getWrapperElement(), {
         opacity: 0,
         y: -50,
@@ -52,19 +64,35 @@ const Editor = ({ socketRef, id, onCodeChange }) => {
     }
 
     init();
+
+    return () => {
+      // Cleanup
+      editorRef.current?.toTextArea();
+    };
   }, []);
 
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
-        if (code !== null) {
+        if (code !== null && editorRef.current) {
+          const cursor = editorRef.current.getCursor();
           editorRef.current.setValue(code);
+          editorRef.current.setCursor(cursor);
         }
+      });
+
+      // Implement autoSync
+      socketRef.current.on(ACTIONS.SYNC_CODE, ({ socketId }) => {
+        socketRef.current.emit(ACTIONS.SYNC_CODE, {
+          code: editorRef.current.getValue(),
+          socketId,
+        });
       });
     }
 
     return () => {
-      socketRef.current.off(ACTIONS.CODE_CHANGE);
+      socketRef.current?.off(ACTIONS.CODE_CHANGE);
+      socketRef.current?.off(ACTIONS.SYNC_CODE);
     };
   }, [socketRef.current]);
 
@@ -72,29 +100,28 @@ const Editor = ({ socketRef, id, onCodeChange }) => {
     const code = editorRef.current.getValue();
     let output = '';
 
-    // Button click animation
     gsap.to('.runButton', { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 });
 
     const originalLog = console.log;
     console.log = (...args) => {
-        output += args.map(arg => {
-            if (typeof arg === 'object') {
-                return JSON.stringify(arg, null, 2); // Pretty-print JSON objects
-            }
-            return String(arg);
-        }).join(' ') + '\n';
+      output += args.map(arg => {
+        if (typeof arg === 'object') {
+          return JSON.stringify(arg, null, 2);
+        }
+        return String(arg);
+      }).join(' ') + '\n';
     };
 
     try {
-        new Function(code)();
-        setOutput(output || 'No output');
+      // Create a new function from the code and execute it
+      new Function(code)();
+      setOutput(output || 'No output');
     } catch (error) {
-        setOutput(`Error: ${error.message}`);
+      setOutput(`Error: ${error.message}`);
     } finally {
-        console.log = originalLog;
+      console.log = originalLog;
     }
-};
-
+  };
 
   return (
     <div style={styles.container}>
@@ -128,6 +155,7 @@ const Editor = ({ socketRef, id, onCodeChange }) => {
     </div>
   );
 };
+
 
 const styles = {
   container: {

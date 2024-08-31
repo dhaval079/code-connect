@@ -8,7 +8,7 @@ const Client = ({ user, isActive }) => {
         style={{ 
           width: "3rem", 
           height: "3rem", 
-          border: isActive ? "5px solid green" : "none" // Conditional border 
+          border: isActive ? "6px solid #4ee44e" : "none" // Conditional border 
         }} 
       />
       <span className="username">{user}</span>
