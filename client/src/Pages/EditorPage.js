@@ -13,6 +13,7 @@ const EditorPage = () => {
   const { id } = useParams();
   const reactNavigator = useNavigate();
   const [clients, setClients] = useState([]);
+  const [socketConnected, setSocketConnected] = useState(false);
   const [activeUser, setActiveUser] = useState(null); // Add this state
 
   useEffect(() => {
@@ -20,12 +21,19 @@ const EditorPage = () => {
       socketRef.current = await initSocket();
 
       socketRef.current.on('connect', () => {
+        setSocketConnected(true);
         socketRef.current.emit(ACTIONS.JOIN, {
           id,
           user: location.state?.user,
         });
       });
 
+      function handleErrors(e) {
+        console.log("socket error", e);
+        toast.error("Socket connection failed try again later");
+        reactNavigator("/");
+      }
+      
       socketRef.current.on(ACTIONS.JOINED, ({ clients, user }) => {
         if (user !== location.state?.user) {
           toast.success(`${user} joined the room`);
