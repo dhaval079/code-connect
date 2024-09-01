@@ -8,5 +8,5 @@ export const initSocket = async () =>{
         transports : ['websocket'],
 
     };
-    return io("https://code-connect-server.onrender.com/",options);
+    return io("https://code-connect-production.up.railway.app/",options);
 }       
