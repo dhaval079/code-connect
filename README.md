@@ -2,10 +2,14 @@
 
 CodeConnect is a cutting-edge real-time collaborative coding platform that revolutionizes the way developers work together. By leveraging the power of modern web technologies, CodeConnect enables seamless pair programming and enhances the collaborative coding experience for multiple users simultaneously.
 
-![CodeConnect Main Interface](Assets/cc1.png)
+![CodeConnect Main Interface](Assets/cc.png)
 <div align="center">
-<img src="Assets/codeconnect.gif" alt="CodeConnect Demo" width="70%">
+
+  <img src="Assets/CodeConnect.gif" alt="CodeConnect Demo" width="100%">
+  
 </div>
+
+
 
 Project Link: https://github.com/dhaval079/code-connect
 
@@ -50,13 +54,10 @@ Live Demo: https://thecodeconnect.vercel.app/
 ## Screenshots
 
 ### Collaborative Coding Session
-![Collaborative Coding](Assets/cc4.png)
+![Collaborative Coding](Assets/cc1.png)
 
 ### Code Execution
 ![Code Execution](Assets/cc2.png)
-
-### User Dashboard
-![User Dashboard](Assets/cc3.png)
 
 ## Impact
 
