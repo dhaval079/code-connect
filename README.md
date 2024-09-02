@@ -143,5 +143,3 @@ This README provides a comprehensive overview of your CodeConnect project, highl
 8. Licensing information
 9. Acknowledgements of key technologies used
 10. Contact information and links to the project repository and live demo
-
-11. 
