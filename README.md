@@ -144,7 +144,4 @@ This README provides a comprehensive overview of your CodeConnect project, highl
 9. Acknowledgements of key technologies used
 10. Contact information and links to the project repository and live demo
 
-Remember to replace placeholder text (like "your-username", "your-email@example.com") with your actual project details and to add real screenshots to the `screenshots` folder.
-
-This README will give potential users and contributors a clear understanding of what CodeConnect is
-
+11. 
