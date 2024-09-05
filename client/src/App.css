@@ -135,7 +135,7 @@ label{
   margin-bottom: 2rem;
 }
 
-.dot {
+.active-dot {
   width: 12px;
   height: 12px;
   background-color: rgb(112, 245, 112);

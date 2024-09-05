@@ -8,5 +8,6 @@ export const initSocket = async () =>{
         transports : ['websocket'],
 
     };
-    return io("https://code-connect-server.onrender.com/",options);
+    // return io("https://code-connect-server.onrender.com/",options);
+    return io("http://localhost:5000/",options);
 }       

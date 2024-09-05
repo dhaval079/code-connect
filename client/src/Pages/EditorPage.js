@@ -5,6 +5,7 @@ import Editor from "../components/Editor";
 import { initSocket } from "../socket";
 import ACTIONS from "../Actions";
 import toast from "react-hot-toast";
+import TypingIndicator from "../components/TypingIndicator";
 
 const EditorPage = () => {
   const socketRef = useRef(null);
@@ -15,6 +16,26 @@ const EditorPage = () => {
   const [clients, setClients] = useState([]);
   const [socketConnected, setSocketConnected] = useState(false);
   const [activeUser, setActiveUser] = useState(null); // Add this state
+  const [activeUser1, setActiveUser1] = useState(null);
+  const typingTimer = useRef(null);
+
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code, user1 }) => {
+        console.log("user changing here this is ", user1);
+        setActiveUser1(user1);
+        clearTimeout(typingTimer.current);
+        typingTimer.current = setTimeout(() => {
+          setActiveUser1(null);
+        }, 3000);
+      });
+    }
+    return () => {
+      socketRef.current?.off(ACTIONS.CODE_CHANGE);
+      clearTimeout(typingTimer.current);
+    };
+  }, [socketRef.current]);
+
 
   useEffect(() => {
     const init = async () => {
@@ -42,10 +63,11 @@ const EditorPage = () => {
       });
 
         // Update the active user when receiving CODE_CHANGE
-        socketRef.current.on(ACTIONS.CODE_CHANGE , ({code, user1}) => {
-          console.log("Code : " , code)
-          console.log("User Changing : ", user1)
-        })
+        socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code, user }) => {
+          console.log("Code : ", code);
+          console.log("User Changing : ", user);
+          setActiveUser(user);
+        });
       
         socketRef.current.on("connection_error", (err) => {
           handleErrors(err);
@@ -73,23 +95,22 @@ const EditorPage = () => {
   }
   }, []);
 
-  useEffect(()=>{
-    if(socketRef.current){
-      socketRef.current.on(ACTIONS.CODE_CHANGE,({code, user1})=>{
-        console.log("user changing here this is " , user1);
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code, user1 }) => {
+        console.log("user changing here this is ", user1);
         setActiveUser(user1);
         setTimeout(() => {
-          setActiveUser()
+          setActiveUser();
         }, 3000);
       });
     }
-    return () =>{
-      socketRef.current.off(ACTIONS.CODE_CHANGE,() => {
+    return () => {
+      socketRef.current.off(ACTIONS.CODE_CHANGE, () => {
         console.log("Socket Off");
       });
-    }
-  },[socketRef.current]);
-
+    };
+  }, [socketRef.current]);
 
   async function copyRoomId() {
     try {
@@ -121,7 +142,7 @@ const EditorPage = () => {
             <img className="logoImage" src="/code.png" alt="codesync" />
           </div>
           <div className="container" style={styles.activeContainer}>
-            <div className="dot" style={styles.activeDot}></div>
+            <div className="active-dot" style={styles.activeDot}></div>
             <div className="text"> Active</div>
           </div>
           <div className="clientsList" style={styles.clientsList}>
@@ -134,8 +155,13 @@ const EditorPage = () => {
             ))}
           </div>
         </div>
-        <button className="btn copyBtn" onClick={copyRoomId} style={styles.copyBtn}>Copy Room ID</button>
-        <button className="btn leaveBtn" onClick={leaveRoom} style={styles.leaveBtn}>Leave</button>
+        <TypingIndicator activeUser={activeUser} />
+        <button className="btn copyBtn" onClick={copyRoomId} style={styles.copyBtn}>
+          Copy Room ID
+        </button>
+        <button className="btn leaveBtn" onClick={leaveRoom} style={styles.leaveBtn}>
+          Leave
+        </button>
       </div>
       <div className="editorwrap" style={styles.editorwrap}>
         <Editor 
@@ -160,6 +186,8 @@ const styles = {
     color: '#fff',
     padding: '20px',
     overflowY: 'auto',
+    scrollbarWidth: 'none', // Hide scrollbar for Firefox
+    msOverflowStyle: 'none', // Hide scrollbar for Internet Explorer/Edge
     overflowX: 'hidden',
   },
   asideInner: {
@@ -170,7 +198,7 @@ const styles = {
     alignItems: 'center',
     marginTop: '20px',
   },
-  activeDot: {
+ activeDot: {
     width: '13px',
     height: '13px',
     borderRadius: '50%',
@@ -182,6 +210,9 @@ const styles = {
     marginTop: '20px',
     maxHeight: 'calc(100% - 150px)',
     overflowY: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
   },
   copyBtn: {
     marginTop: '10px',
@@ -204,5 +235,14 @@ const styles = {
     overflow: 'hidden',
   },
 };
+
+const globalStyle = document.createElement('style');
+globalStyle.innerHTML = `
+  .aside::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Webkit browsers */
+  }
+`;
+document.head.appendChild(globalStyle);
+
 
 export default EditorPage;
