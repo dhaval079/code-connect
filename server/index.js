@@ -12,19 +12,19 @@ const server = http.createServer(app); // Add this
 
 // Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
 //! local server
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:3000/',
-    methods: ['GET', 'POST'],
-  },
-});
-//! dev server
 // const io = new Server(server, {
 //   cors: {
-//     origin: 'https://thecodeconnect.vercel.app/',
+//     origin: 'http://localhost:3000/',
 //     methods: ['GET', 'POST'],
 //   },
 // });
+//! dev server
+const io = new Server(server, {
+  cors: {
+    origin: 'https://thecodeconnect.vercel.app/',
+    methods: ['GET', 'POST'],
+  },
+});
 
 app.get("/",(req,res)=>{
   res.send("Server is running")
