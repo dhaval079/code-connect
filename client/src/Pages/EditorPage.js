@@ -6,7 +6,7 @@ import { initSocket } from "../socket";
 import ACTIONS from "../Actions";
 import toast from "react-hot-toast";
 import TypingIndicator from "../components/TypingIndicator";
-
+import './EditorPage.css'
 const EditorPage = () => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -67,6 +67,10 @@ const EditorPage = () => {
           console.log("Code : ", code);
           console.log("User Changing : ", user);
           setActiveUser(user);
+          clearTimeout(typingTimer.current);
+          typingTimer.current = setTimeout(() => {
+            setActiveUser(null);
+          }, 3000); // Reset active user after 3 seconds of inactivity
         });
       
         socketRef.current.on("connection_error", (err) => {
@@ -91,6 +95,7 @@ const EditorPage = () => {
       socketRef.current?.disconnect();
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
+      clearTimeout(typingTimer.current);
     }
   }
   }, []);
@@ -133,6 +138,7 @@ const EditorPage = () => {
   if (!location.state) {
     return <Navigate to="/" />;
   }
+  const currentUser = location.state?.user; // Get the current user
 
   return (
     <div className="mainWrap" style={styles.mainWrap}>
@@ -217,8 +223,8 @@ const styles = {
   copyBtn: {
     marginTop: '10px',
     padding: '10px',
-    backgroundColor: '#2E99B0',
-    border: 'none',
+    backgroundColor: '#000000',
+    color: 'whitesmoke',
     borderRadius: '5px',
     cursor: 'pointer',
   },

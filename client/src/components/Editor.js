@@ -140,9 +140,7 @@ console.log("Hello, World!");`);
             Run
           </button>
           <button
-            style={styles.languageButton}
-            onMouseEnter={() => gsap.to('.languageButton', { backgroundColor: '#101437', duration: 0.3 })}
-            onMouseLeave={() => gsap.to('.languageButton', { backgroundColor: '#161E54', duration: 0.3 })}
+            style={styles.languageButton} className='languageButton'
           >
             Language: JavaScript
           </button>
@@ -205,7 +203,7 @@ const styles = {
     cursor: 'pointer',
     backgroundColor: '#2E99B0',
     border: 'none',
-    color: 'whitesmoke',
+    color: 'white',
     borderRadius: '8px',
     transition: 'background-color 0.3s',
     boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
@@ -215,11 +213,11 @@ const styles = {
     padding: '12px 24px',
     fontSize: '16px',
     cursor: 'pointer',
-    backgroundColor: '#161E54',
+    backgroundColor: '#000000',
     border: 'none',
     borderRadius: '8px',
     color: 'white',
-    transition: 'background-color 0.3s',
+    border: '1px solid rgba(255, 255, 255, 0.233)',
     boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
   },
   outputContainer: {

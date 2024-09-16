@@ -9,8 +9,6 @@ import Header from "../components/Header";
 import BuyMeACoffeeButton from "../components/BuyMeACoffeeButton";
 
 function Home() {
-
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

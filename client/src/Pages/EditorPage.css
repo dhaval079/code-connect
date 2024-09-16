@@ -1,0 +1,22 @@
+.copyBtn{
+    background: transparent;
+    color: whitesmoke;    
+  }
+
+.copyBtn:hover{
+    background: rgb(27, 27, 27);
+    border: 2px solid rgba(255, 255, 255, 0.819);
+    transition: 0.1s all ease-in-out;    
+    color: whitesmoke;
+  }
+  
+  .languageButton{
+    color: whitesmoke;    
+  }
+
+.languageButton:hover{
+    background: rgb(27, 27, 27);
+    border: 2px solid rgba(255, 255, 255, 0.819);
+    transition: 0.1s all ease-in-out;    
+    color: whitesmoke;
+  }
